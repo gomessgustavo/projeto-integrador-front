@@ -1,11 +1,6 @@
+import "./header.style.css";
 import { Link } from "react-router-dom";
-import { HeaderBar, HeaderLogo, HeaderNav } from "./header.style";
-
-export const linkEstilo: React.CSSProperties = {
-  textDecoration: "none",
-  color: "#fff",
-  fontWeight: "600",
-};
+import { HeaderBar, HeaderLogo, HeaderNav } from "./headerComponents.style";
 
 export const Header = () => {
   return (
@@ -16,13 +11,13 @@ export const Header = () => {
         </h1>
       </HeaderLogo>
       <HeaderNav>
-        <Link style={linkEstilo} to="adocao">
+        <Link className="header__link" to="adocao">
           Adoção
         </Link>
-        <Link style={linkEstilo} to="cadastro">
+        <Link className="header__link" to="cadastro">
           Cadastro
         </Link>
-        <Link style={linkEstilo} to="sobre">
+        <Link className="header__link" to="sobre">
           Sobre
         </Link>
       </HeaderNav>
