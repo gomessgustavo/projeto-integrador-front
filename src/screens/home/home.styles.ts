@@ -8,6 +8,16 @@ export const LeftSide = styled.div`
   justify-content: center;
   flex-direction: column;
   background: #22c188;
+  h1{
+    color: white;
+    font-size: 60px;
+  }
+  h2{
+    height: 8%;
+    color: white;
+    font-size: 14px;
+  }
+
 `;
 
 export const RightSide = styled.div`
@@ -21,3 +31,6 @@ export const RightSide = styled.div`
 export const ImageHome = styled.img`
   height: 100vh;
 `;
+export const ImageLeft = styled.img`
+  height: 8%;
+`
