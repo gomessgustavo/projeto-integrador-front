@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LeftSide = styled.div`
-  width: 55%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -11,11 +11,13 @@ export const LeftSide = styled.div`
 `;
 
 export const RightSide = styled.div`
-  width: 45%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #ecc059;
+`;
+
+export const ImageHome = styled.img`
+  height: 100vh;
 `;

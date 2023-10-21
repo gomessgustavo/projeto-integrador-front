@@ -11,6 +11,8 @@ import {
 } from "./endpoints.constants";
 import { PetModel } from "./model/pet.model";
 import { server } from "./server";
+import { PetUpdateModel } from "./model/pet-update.model";
+import { AxiosResponse } from "axios";
 
 export const AdocaoApi = () => {
   const api = server();
@@ -19,7 +21,7 @@ export const AdocaoApi = () => {
     return await api.post(CREATE_PET, body);
   };
 
-  const getPets = async () => {
+  const getPets = async (): Promise<AxiosResponse<PetModel[]>> => {
     return await api.get(GET_ALL_PETS);
   };
 
@@ -27,8 +29,8 @@ export const AdocaoApi = () => {
     return await api.delete(DELETE_PET.replace(ID_PARAM, id));
   };
 
-  const updatePet = async (id: string) => {
-    return await api.put(UPDATE_PET.replace(ID_PARAM, id));
+  const updatePet = async (id: string, body: PetUpdateModel) => {
+    return await api.put(UPDATE_PET.replace(ID_PARAM, id), body);
   };
 
   const uploadImage = async (img: any) => {

@@ -2,22 +2,32 @@ import "./header.style.css";
 import { Link } from "react-router-dom";
 import { HeaderBar, HeaderLogo, HeaderNav } from "./headerComponents.style";
 
-export const Header = () => {
+interface PropHeader {
+  nome?: string;
+}
+
+const Logo = () => {
+  return (
+    <span>
+      pe<span style={{ color: "#EBC330" }}>t</span>utor
+    </span>
+  );
+};
+
+export const Header = (prop: PropHeader) => {
   return (
     <HeaderBar>
       <HeaderLogo>
-        <h1>
-          pe<span style={{ color: "#EBC330" }}>t</span>utor
-        </h1>
+        <h1>{prop?.nome ? <span>{prop.nome}</span> : <Logo />}</h1>
       </HeaderLogo>
       <HeaderNav>
-        <Link className="header__link" to="adocao">
+        <Link className="header__link" to="/adocao">
           Adoção
         </Link>
-        <Link className="header__link" to="cadastro">
+        <Link className="header__link" to="/cadastro">
           Cadastro
         </Link>
-        <Link className="header__link" to="sobre">
+        <Link className="header__link" to="/sobre">
           Sobre
         </Link>
       </HeaderNav>
