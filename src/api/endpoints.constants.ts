@@ -1,5 +1,6 @@
 export const ID_PARAM = ":id";
 export const FILENAME_PARAM = ":filename";
+export const ITEMS_PER_PAGE = 10;
 
 export const CREATE_PET = "/pets";
 export const GET_ALL_PETS = "/pets";

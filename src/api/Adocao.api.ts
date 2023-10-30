@@ -6,6 +6,7 @@ import {
   GET_ALL_PETS,
   GET_IMAGE,
   ID_PARAM,
+  ITEMS_PER_PAGE,
   UPDATE_PET,
   UPLOAD_IMAGE,
 } from "./endpoints.constants";
@@ -21,8 +22,13 @@ export const AdocaoApi = () => {
     return await api.post(CREATE_PET, body);
   };
 
-  const getPets = async (): Promise<AxiosResponse<PetModel[]>> => {
-    return await api.get(GET_ALL_PETS);
+  const getPets = async (page: number): Promise<AxiosResponse<PetModel[]>> => {
+    return await api.get(GET_ALL_PETS, {
+      params: {
+        pageNumber: page,
+        itemsPerPage: ITEMS_PER_PAGE,
+      },
+    });
   };
 
   const deletePet = async (id: string) => {

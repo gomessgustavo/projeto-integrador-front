@@ -7,5 +7,6 @@ export class PetModel {
   raca: string;
   descricao: string;
   imagemBase64: string;
+  azureUrls: string[];
   created_at: string;
 }

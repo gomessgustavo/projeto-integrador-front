@@ -7,7 +7,6 @@ export const server = () => {
       ? process.env.REACT_APP_URL_PRD
       : process.env.REACT_APP_URL_LOCAL;
 
-  console.log(url);
   return axios.create({
     baseURL: url,
   });
