@@ -1,49 +1,56 @@
 import styled from "styled-components";
 import { PetModel } from "../../api/model/pet.model";
+import { InfoPet, Pet, PetImage, PropsCardModal } from "./adoption.styles";
+import ReactImageGallery from "react-image-gallery";
 import { Button } from "../../components/button/button.component";
-import {
-  Pet,
-  PetTag,
-  PetTagDiv,
-  PetTagImg,
-  PetTagName,
-} from "./adoption.styles";
-import { DEFAULT_GREEN } from "../../utils/css.constants";
-import BONE from "../../assets/img/tag.png";
 
 interface PropCardPet {
   pet: PetModel;
   openModal: (pet: PetModel) => void;
+  modalOpened: boolean;
 }
 
-const Card = styled.li`
+const Card = styled.li<PropsCardModal>`
   display: flex;
-  width: 280px;
-  height: 360px;
-  flex-direction: column;
+  height: 300px;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin: 30px 30px;
   margin-right: auto;
+  background: #00000013;
+  border-radius: 5px;
+  width: ${(props) => (props.modalOpened ? "90%" : "45%")};
+
+  @media (max-width: 1250px) {
+    width: 90%;
+  }
 `;
 
-export const CardPet = ({ pet, openModal }: PropCardPet) => {
+export const CardPet = ({ pet, openModal, modalOpened }: PropCardPet) => {
   return (
-    <Card>
-      <Pet style={{ backgroundImage: `url(${pet.azureUrls[0]})` }}>
-        <PetTag>
-          <PetTagDiv>
-            <PetTagImg src={BONE} />
-            <PetTagName>{pet.nome}</PetTagName>
-          </PetTagDiv>
-        </PetTag>
-      </Pet>
-      <Button
-        color={DEFAULT_GREEN}
-        name="Ver Mais"
-        width="100px"
-        onClick={() => openModal(pet)}
-      />
+    <Card modalOpened={modalOpened}>
+      <PetImage src={pet.azureUrls[0]} />
+      <InfoPet>
+        <h1>{pet.nome}</h1>
+        <p>
+          <b>Idade: </b>
+          {pet.idade}
+        </p>
+        <p>
+          <b>Porte: </b>
+          {pet.porte}
+        </p>
+        <p>
+          <b>Sexo: </b>
+          {pet.sexo}
+        </p>
+        <p>
+          <b>Idade: </b>
+          {pet.idade}
+        </p>
+        <Button name="Ver Mais" onClick={() => openModal(pet)} color="" />
+      </InfoPet>
     </Card>
   );
 };
