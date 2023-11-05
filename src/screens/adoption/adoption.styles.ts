@@ -66,6 +66,12 @@ export const AdoptionInfo = styled.div`
   p {
     margin: 5px 0;
   }
+  form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
   overflow: auto;
 `;
 
@@ -106,3 +112,5 @@ export const AdoptionInfoContainer = styled.div`
   width: 50%;
   height: 100%;
 `;
+
+export const AdoptionFormText = styled.textarea``;

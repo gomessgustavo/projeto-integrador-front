@@ -4,6 +4,7 @@ import { PetModel } from "../../api/model/pet.model";
 import { CardPet } from "./card-pet.component";
 import {
   AdoptionContainer,
+  AdoptionFormText,
   AdoptionInfo,
   AdoptionInfoContainer,
   AdoptionInfoSide,
@@ -16,6 +17,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FormValues } from "../../types/adoption/FormValues";
 import { init } from "../../utils/init-classes";
 import { InputLabel } from "../../components/input-label/input-label.component";
+import { Button } from "../../components/button/button.component";
 
 export const Adoption = () => {
   const api = AdocaoApi();
@@ -115,12 +117,28 @@ export const Adoption = () => {
               e enviar para entrarmos em contato.
             </p>
             <form>
-              <InputLabel
-                label="Nome"
-                value={values.name}
-                onChange={handleChange}
-                name="name"
-              />
+              <ColumnDiv>
+                <InputLabel
+                  label="Nome"
+                  value={values.name}
+                  onChange={handleChange}
+                  name="name"
+                />
+                <InputLabel
+                  label="Telefone"
+                  value={values.phone}
+                  onChange={handleChange}
+                  name="phone"
+                />
+                <InputLabel
+                  label="E-mail"
+                  value={values.email}
+                  onChange={handleChange}
+                  name="phone"
+                />
+              </ColumnDiv>
+              <AdoptionFormText />
+              <Button name="Enviar" onClick={() => console.log("a")} />
             </form>
           </AdoptionInfo>
         </AdoptionInfoContainer>
