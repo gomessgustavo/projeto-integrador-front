@@ -1,16 +1,22 @@
 import styled from "styled-components";
 import { DEFAULT_YELLOW } from "../../utils/css.constants";
 
-const StyledButton = styled.button`
+interface PropStyledButton {
+  $bgColor?: string;
+  margin?: string;
+}
+
+const StyledButton = styled.button<PropStyledButton>`
   padding: 10px 5px;
   color: white;
   border-radius: 50px;
   border: 0;
   font-weight: 600;
   font-family: "Poppins";
+  margin: ${(props) => props.margin || "0"};
   font-size: 15px;
   letter-spacing: 1.5px;
-  background: ${(props) => props.color || DEFAULT_YELLOW};
+  background: ${(props) => props.$bgColor || DEFAULT_YELLOW};
   cursor: pointer;
   height: 45px;
   transition: 0.15s;
@@ -21,19 +27,21 @@ const StyledButton = styled.button`
 
 interface PropButton {
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
   color?: string;
   type?: "submit" | "reset" | "button" | undefined;
   width?: string;
+  margin?: string;
 }
 
 export const Button = (props: PropButton) => {
   return (
     <StyledButton
       onClick={props.onClick}
-      color={props.color}
+      $bgColor={props.color}
       type={props.type}
       style={{ width: props.width || "150px" }}
+      margin={props.margin}
     >
       {props.name}
     </StyledButton>

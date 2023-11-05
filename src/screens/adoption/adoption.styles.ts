@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { WHITE_COLOR, DEFAULT_YELLOW } from "../../utils/css.constants";
+import { WHITE_COLOR } from "../../utils/css.constants";
 
 export interface PropsCardModal {
-  modalOpened: boolean;
+  $modalOpened: boolean;
 }
 
 export const Pet = styled.div`
@@ -41,7 +41,7 @@ export const AdoptionLista = styled.ul<PropsCardModal>`
   list-style: none;
   margin-block: 0;
   margin-inline: 0;
-  width: ${(props) => (props.modalOpened ? "50%" : "100%")};
+  width: ${(props) => (props.$modalOpened ? "50%" : "100%")};
   padding-inline-start: 0;
   overflow: auto;
 `;
@@ -113,4 +113,21 @@ export const AdoptionInfoContainer = styled.div`
   height: 100%;
 `;
 
-export const AdoptionFormText = styled.textarea``;
+export const AdoptionFormText = styled.textarea`
+  height: 100%;
+
+  resize: none;
+`;
+
+export const FormContainer = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  height: 100%;
+`;
+
+export const AdoptionCarousel = styled.div`
+  width: 50%;
+  height: 100%;
+`;

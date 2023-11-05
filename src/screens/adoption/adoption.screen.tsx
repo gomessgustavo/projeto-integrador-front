@@ -3,14 +3,16 @@ import { AdocaoApi } from "../../api/Adocao.api";
 import { PetModel } from "../../api/model/pet.model";
 import { CardPet } from "./card-pet.component";
 import {
+  AdoptionCarousel,
   AdoptionContainer,
   AdoptionFormText,
   AdoptionInfo,
   AdoptionInfoContainer,
   AdoptionInfoSide,
   AdoptionLista,
+  FormContainer,
 } from "./adoption.styles";
-import { ColumnDiv, RowDiv } from "../../components/utils";
+import { ColumnDiv, LabelInput, RowDiv } from "../../components/utils";
 import ReactImageGallery from "react-image-gallery";
 import { IconButton } from "../../components/icon-button/icon-button.component";
 import { AiOutlineClose } from "react-icons/ai";
@@ -57,7 +59,6 @@ export const Adoption = () => {
   };
 
   const handleChange = (event: any) => {
-    console.log(event);
     const { value, name } = event.target;
 
     setValues((oldValue) => ({
@@ -66,12 +67,16 @@ export const Adoption = () => {
     }));
   };
 
+  const sendEmail = () => {
+    console.log("a");
+  };
+
   return (
     <AdoptionContainer>
       <AdoptionLista
         onScroll={onScroll}
         ref={listInnerRef}
-        modalOpened={!!selectedPet}
+        $modalOpened={!!selectedPet}
       >
         {pets.map((pet) => (
           <CardPet
@@ -86,20 +91,24 @@ export const Adoption = () => {
         <AdoptionInfoContainer>
           <AdoptionInfo>
             <AdoptionInfoSide>
-              <ReactImageGallery
-                items={selectedPet.azureUrls.map((url) => ({
-                  original: url,
-                  thumbnail: url,
-                }))}
-                showThumbnails={false}
-                showPlayButton={false}
-                showBullets={false}
-                showIndex
-              />
-              <ColumnDiv>
+              <AdoptionCarousel>
+                <ReactImageGallery
+                  items={selectedPet.azureUrls.map((url) => ({
+                    original: url,
+                    thumbnail: url,
+                  }))}
+                  showThumbnails={false}
+                  showPlayButton={false}
+                  showBullets={false}
+                  showIndex
+                />
+              </AdoptionCarousel>
+              <ColumnDiv $justifyContent="flex-start">
                 <RowDiv
-                  style={{ justifyContent: "space-between", height: "auto" }}
+                  $justifyContent="space-between"
+                  style={{ height: "auto" }}
                 >
+                  <div></div>
                   <h2>{selectedPet.nome}</h2>
                   <IconButton
                     onClick={() => setSelectedPet(undefined)}
@@ -116,19 +125,22 @@ export const Adoption = () => {
               Em caso de interesse, logo abaixo você pode preencher o formulário
               e enviar para entrarmos em contato.
             </p>
-            <form>
-              <ColumnDiv>
+            <FormContainer onSubmit={sendEmail}>
+              <ColumnDiv $padding="5px" $justifyContent="flex-start">
                 <InputLabel
                   label="Nome"
                   value={values.name}
                   onChange={handleChange}
                   name="name"
+                  width="100%"
+                  margin="0 5px 0 0"
                 />
                 <InputLabel
                   label="Telefone"
                   value={values.phone}
                   onChange={handleChange}
                   name="phone"
+                  width="100%"
                 />
                 <InputLabel
                   label="E-mail"
@@ -136,10 +148,16 @@ export const Adoption = () => {
                   onChange={handleChange}
                   name="phone"
                 />
+                <ColumnDiv $height="100%" $margin="10px 0">
+                  <LabelInput>
+                    Nos diga por que você deseja adotar {selectedPet.nome}{" "}
+                    abaixo:
+                  </LabelInput>
+                  <AdoptionFormText maxLength={1000} />
+                </ColumnDiv>
+                <Button type="submit" name="Enviar" width="100%" />
               </ColumnDiv>
-              <AdoptionFormText />
-              <Button name="Enviar" onClick={() => console.log("a")} />
-            </form>
+            </FormContainer>
           </AdoptionInfo>
         </AdoptionInfoContainer>
       )}

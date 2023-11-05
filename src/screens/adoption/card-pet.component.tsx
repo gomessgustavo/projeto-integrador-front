@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { PetModel } from "../../api/model/pet.model";
-import { InfoPet, Pet, PetImage, PropsCardModal } from "./adoption.styles";
-import ReactImageGallery from "react-image-gallery";
+import { InfoPet, PetImage, PropsCardModal } from "./adoption.styles";
 import { Button } from "../../components/button/button.component";
 
 interface PropCardPet {
@@ -20,7 +19,7 @@ const Card = styled.li<PropsCardModal>`
   margin-right: auto;
   background: #00000013;
   border-radius: 5px;
-  width: ${(props) => (props.modalOpened ? "90%" : "45%")};
+  width: ${(props) => (props.$modalOpened ? "90%" : "45%")};
 
   @media (max-width: 1250px) {
     width: 90%;
@@ -29,7 +28,7 @@ const Card = styled.li<PropsCardModal>`
 
 export const CardPet = ({ pet, openModal, modalOpened }: PropCardPet) => {
   return (
-    <Card modalOpened={modalOpened}>
+    <Card $modalOpened={modalOpened}>
       <PetImage src={pet.azureUrls[0]} />
       <InfoPet>
         <h1>{pet.nome}</h1>

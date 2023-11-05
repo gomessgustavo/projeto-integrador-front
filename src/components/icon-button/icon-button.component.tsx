@@ -6,9 +6,9 @@ const DEFAULT_SIZE = "45px";
 const DEFAULT_ICON_SIZE = "30px";
 
 interface PropStyle {
-  buttonColor?: string;
-  size: string;
-  iconSize: string;
+  $buttonColor?: string;
+  $size: string;
+  $iconSize: string;
 }
 
 const StyledButton = styled.button<PropStyle>`
@@ -18,14 +18,14 @@ const StyledButton = styled.button<PropStyle>`
   border: 0;
   font-weight: 600;
   font-family: "Poppins";
-  font-size: ${(props) => props.iconSize};
+  font-size: ${(props) => props.$iconSize};
   letter-spacing: 1.5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(props) => props.buttonColor || DEFAULT_YELLOW};
-  width: ${(props) => props.size};
-  height: ${(props) => props.size};
+  background: ${(props) => props.$buttonColor || DEFAULT_YELLOW};
+  width: ${(props) => props.$size};
+  height: ${(props) => props.$size};
   cursor: pointer;
   height: 45px;
   transition: 0.15s;
@@ -47,10 +47,10 @@ export const IconButton = (props: PropButton) => {
   return (
     <StyledButton
       onClick={props.onClick}
-      buttonColor={props.color}
+      $buttonColor={props.color}
       type={props.type}
-      size={props.size || DEFAULT_SIZE}
-      iconSize={props.iconSize || DEFAULT_ICON_SIZE}
+      $size={props.size || DEFAULT_SIZE}
+      $iconSize={props.iconSize || DEFAULT_ICON_SIZE}
     >
       {props.icon}
     </StyledButton>

@@ -1,16 +1,12 @@
-import { TextInput } from "../utils";
+import { LabelInput, PropStyles, TextInput } from "../utils";
 import styled from "styled-components";
 
-const ContainerInput = styled.div`
-  width: auto;
+const ContainerInput = styled.div<PropStyles>`
+  width: ${(props) => props.$width || "auto"};
+  margin: ${(props) => props.$margin || "0"};
   height: auto;
   display: flex;
   flex-direction: column;
-`;
-
-const LabelInput = styled.label`
-  font-size: 15px;
-  font-weight: bold;
 `;
 
 interface PropInputLabel {
@@ -18,11 +14,13 @@ interface PropInputLabel {
   value: string;
   onChange: (event: any) => void;
   name: string;
+  width?: string;
+  margin?: string;
 }
 
 export const InputLabel = (props: PropInputLabel) => {
   return (
-    <ContainerInput>
+    <ContainerInput $width={props.width} $margin={props.margin}>
       <LabelInput>{props.label}</LabelInput>
       <TextInput
         name={props.name}
