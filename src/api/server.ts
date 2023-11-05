@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 
 export const server = () => {
   const nodeEnv = process.env.NODE_ENV;

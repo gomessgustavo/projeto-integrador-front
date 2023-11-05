@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   CREATE_PET,
   DELETE_PET,
