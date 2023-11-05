@@ -47,15 +47,12 @@ export const AdocaoApi = () => {
     return await api.get(GET_IMAGE.replace(FILENAME_PARAM, filename));
   };
 
-  return useMemo(
-    () => ({
-      createPets,
-      getPets,
-      deletePet,
-      updatePet,
-      uploadImage,
-      getImage,
-    }),
-    []
-  );
+  return {
+    createPets,
+    getPets,
+    deletePet,
+    updatePet,
+    uploadImage,
+    getImage,
+  };
 };

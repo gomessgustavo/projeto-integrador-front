@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { AdocaoApi } from "../../api/Adocao.api";
 import { PetModel } from "../../api/model/pet.model";
 import { CardPet } from "./card-pet.component";
@@ -22,30 +22,33 @@ import { InputLabel } from "../../components/input-label/input-label.component";
 import { Button } from "../../components/button/button.component";
 
 export const Adoption = () => {
-  const api = AdocaoApi();
   const [pets, setPets] = useState<PetModel[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetModel>();
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const [values, setValues] = useState<FormValues>(init(FormValues));
   const listInnerRef = useRef<HTMLUListElement>(null);
-  useEffect(() => {
-    const getPets = async () => {
-      const response = await api.getPets(page);
-      if (response.data.length < 10) {
-        setLastPage(true);
-      }
-      setPets([...pets, ...response.data]);
-    };
 
-    getPets();
-  }, [page]);
+  const getPets = async () => {
+    const api = AdocaoApi();
+    const response = await api.getPets(page);
+    if (response.data.length < 10) {
+      setLastPage(true);
+    }
+    setPets((oldState) => [...oldState, ...response.data]);
+  };
+
+  const getPetsCallback = useCallback(getPets, [page]);
+
+  useEffect(() => {
+    getPetsCallback();
+  }, [getPetsCallback]);
 
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
       if (scrollTop + clientHeight === scrollHeight && !lastPage) {
-        changePage();
+        nextPage();
       }
     }
   };
@@ -54,7 +57,7 @@ export const Adoption = () => {
     setSelectedPet(pet);
   };
 
-  const changePage = () => {
+  const nextPage = () => {
     setPage((value) => value + 1);
   };
 
