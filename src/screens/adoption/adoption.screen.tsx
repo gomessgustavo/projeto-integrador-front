@@ -149,7 +149,7 @@ export const Adoption = () => {
                   label="E-mail"
                   value={values.email}
                   onChange={handleChange}
-                  name="phone"
+                  name="email"
                 />
                 <ColumnDiv $height="100%" $margin="10px 0">
                   <LabelInput>
