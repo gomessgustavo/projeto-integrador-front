@@ -9,7 +9,7 @@ export const PrivateRoute = ({ children }: IPrivateProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = undefined;
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }

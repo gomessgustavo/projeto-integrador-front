@@ -6,7 +6,7 @@ export const LeftSide = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
   background: ${DEFAULT_GREEN};
   h1 {
@@ -26,13 +26,24 @@ export const RightSide = styled.div`
   width: 35%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   background: ${DEFAULT_YELLOW};
+  padding: 20px 0;
+  form {
+    width: 100%;
+    display: flex;
+    height: 40%;
+    padding: 50px;
+  }
+
+  h1 {
+    margin: 5px 0;
+  }
 `;
 
 export const ImageHome = styled.img`
-  height: 100vh;
+  width: 80%;
 `;
 export const Logo = styled.img`
   height: auto;

@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
+import { DEFAULT_GREEN } from "../../utils/css.constants";
 
 export const HeaderBar = styled.header`
-  background-color: none;
+  background: ${DEFAULT_GREEN};
   color: white;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -12,7 +12,8 @@ export const HeaderBar = styled.header`
   margin: 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const HeaderLogo = styled.div`
@@ -20,13 +21,4 @@ export const HeaderLogo = styled.div`
   width: 100%;
   color: white;
   font-weight: bold;
-`;
-
-export const HeaderNav = styled.nav`
-  height: 100%;
-  width: 45%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: end;
 `;

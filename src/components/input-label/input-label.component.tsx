@@ -16,6 +16,9 @@ interface PropInputLabel {
   name: string;
   width?: string;
   margin?: string;
+  type?: React.HTMLInputTypeAttribute;
+  maxLength?: number;
+  required?: boolean;
 }
 
 export const InputLabel = (props: PropInputLabel) => {
@@ -26,6 +29,9 @@ export const InputLabel = (props: PropInputLabel) => {
         name={props.name}
         value={props.value}
         onChange={props.onChange}
+        type={props.type}
+        maxLength={props.maxLength}
+        required={props.required}
       />
     </ContainerInput>
   );

@@ -16,6 +16,7 @@ export const RowDiv = styled.div<PropStyles>`
   flex-direction: row;
   justify-content: ${(prop) => prop.$justifyContent || "center"};
   align-items: ${(prop) => prop.$alignItems || "normal"};
+  padding: ${(prop) => prop.$padding || "0"};
 `;
 
 export const ColumnDiv = styled.div<PropStyles>`
@@ -37,10 +38,10 @@ export const ColumnDiv = styled.div<PropStyles>`
 
 export const TextInput = styled.input<PropStyles>`
   border: 2px solid;
-  border-radius: 3px;
+  border-radius: 20px;
   width: ${(prop) => prop.width || "auto"};
   font-size: 13px;
-  padding: 5px 10px;
+  padding: ${(prop) => prop.$padding || "8px"};
 `;
 
 export const LabelInput = styled.label`

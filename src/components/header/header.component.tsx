@@ -1,9 +1,8 @@
 import "./header.style.css";
-import { Link } from "react-router-dom";
-import { HeaderBar, HeaderLogo, HeaderNav } from "./headerComponents.style";
+import { HeaderBar, HeaderLogo } from "./headerComponents.style";
 
 interface PropHeader {
-  nome?: string;
+  name?: string;
 }
 
 const Logo = () => {
@@ -17,20 +16,7 @@ const Logo = () => {
 export const Header = (prop: PropHeader) => {
   return (
     <HeaderBar>
-      <HeaderLogo>
-        <h1>{prop?.nome ? <span>{prop.nome}</span> : <Logo />}</h1>
-      </HeaderLogo>
-      <HeaderNav>
-        <Link className="header__link" to="/adocao">
-          Adoção
-        </Link>
-        <Link className="header__link" to="/cadastro">
-          Cadastro
-        </Link>
-        <Link className="header__link" to="/sobre">
-          Sobre
-        </Link>
-      </HeaderNav>
+      <h1>{prop?.name ? <span>{prop.name}</span> : <Logo />}</h1>
     </HeaderBar>
   );
 };
