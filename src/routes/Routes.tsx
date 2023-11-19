@@ -1,16 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home, Adoption } from "../screens";
-import { BasePage } from "../components/base-page/base-page.component";
+import { Home, Login } from "../screens";
+import { PrivateRoute } from "../components/private/private.component";
 
-export const router = createBrowserRouter([
+export interface IRouteProp {
+  path: string;
+  element: JSX.Element;
+  isPrivate?: boolean;
+}
+
+export const routes: IRouteProp[] = [
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <Home />,
+    isPrivate: true,
   },
-  {
-    path: "/adocao",
-    element: (
-      <BasePage component={<Adoption />} title="Adote com consciência!" />
-    ),
-  },
-]);
+];
+
+export const router = createBrowserRouter(
+  routes.map(({ path, isPrivate, element: el }) => {
+    const element = isPrivate ? <PrivateRoute children={el} /> : el;
+    return {
+      path,
+      element,
+    };
+  })
+);
