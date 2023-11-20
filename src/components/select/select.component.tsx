@@ -1,4 +1,4 @@
-import { LabelInput, PropStyles, TextInput } from "../utils";
+import { LabelInput, PropStyles, SelectStyled, TextInput } from "../utils";
 import styled from "styled-components";
 
 const ContainerInput = styled.div<PropStyles>`
@@ -9,9 +9,15 @@ const ContainerInput = styled.div<PropStyles>`
   flex-direction: column;
 `;
 
+interface IOptions {
+  value: string;
+  label: string;
+  id: string;
+}
+
 interface PropInputLabel {
   label: string;
-  value?: string;
+  value: string;
   onChange: (event: any) => void;
   name: string;
   width?: string;
@@ -19,24 +25,20 @@ interface PropInputLabel {
   type?: React.HTMLInputTypeAttribute;
   maxLength?: number;
   required?: boolean;
-  accept?: string;
-  multiple?: boolean;
+  options: IOptions[];
 }
 
-export const InputLabel = (props: PropInputLabel) => {
+export const Select = (props: PropInputLabel) => {
   return (
     <ContainerInput $width={props.width} $margin={props.margin}>
       <LabelInput>{props.label}</LabelInput>
-      <TextInput
-        name={props.name}
-        value={props.value}
-        onChange={props.onChange}
-        type={props.type}
-        maxLength={props.maxLength}
-        required={props.required}
-        accept={props.accept}
-        multiple={props.multiple}
-      />
+      <SelectStyled name={props.name} onChange={props.onChange}>
+        {props.options.map((opt) => (
+          <option key={opt.id} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </SelectStyled>
     </ContainerInput>
   );
 };

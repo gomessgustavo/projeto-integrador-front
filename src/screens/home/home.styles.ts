@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { WHITE_COLOR } from "../../utils/css.constants";
-
-export interface PropsCardModal {
-  $modalOpened: boolean;
-}
+import { SMOOTH_YELLOW, WHITE_COLOR } from "../../utils/css.constants";
 
 export const Pet = styled.div`
   padding: 0;
@@ -29,7 +25,7 @@ export const PetTag = styled.span`
   border-radius: 5px;
 `;
 
-export const HomeLista = styled.ul<PropsCardModal>`
+export const HomeLista = styled.ul`
   display: flex;
   height: 100%;
   flex-direction: row;
@@ -41,7 +37,7 @@ export const HomeLista = styled.ul<PropsCardModal>`
   list-style: none;
   margin-block: 0;
   margin-inline: 0;
-  width: ${(props) => (props.$modalOpened ? "50%" : "100%")};
+  width: 100%;
   padding-inline-start: 0;
   overflow: auto;
 `;
@@ -51,6 +47,7 @@ export const HomeContainer = styled.div`
   height: 100%;
   flex-direction: column;
   align-items: center;
+  background: ${SMOOTH_YELLOW};
 `;
 
 export const HomeInfo = styled.div`
@@ -72,7 +69,6 @@ export const HomeInfo = styled.div`
     width: 100%;
     justify-content: space-between;
   }
-  overflow: auto;
 `;
 
 export const InfoPet = styled.div`
@@ -118,11 +114,6 @@ export const PetImage = styled.div`
 export const HomeInfoContainer = styled.div`
   width: 50%;
   height: 100%;
-`;
-
-export const HomeFormText = styled.textarea`
-  height: 100%;
-  resize: none;
 `;
 
 export const FormContainer = styled.form`

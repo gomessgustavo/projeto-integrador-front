@@ -17,8 +17,13 @@ import { AxiosResponse } from "axios";
 export const AdocaoApi = () => {
   const api = server();
 
-  const createPets = async (body: PetModel) => {
-    return await api.post(CREATE_PET, body);
+  const createPets = async (body: PetModel, files: FileList) => {
+    const formData = new FormData();
+    return await api.post(CREATE_PET, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   const getPets = async (page: number): Promise<AxiosResponse<PetModel[]>> => {
@@ -31,6 +36,7 @@ export const AdocaoApi = () => {
   };
 
   const deletePet = async (id: string) => {
+    console.log(DELETE_PET.replace(ID_PARAM, id));
     return await api.delete(DELETE_PET.replace(ID_PARAM, id));
   };
 

@@ -41,6 +41,7 @@ interface PropButton {
   size?: string;
   icon: ReactElement;
   iconSize?: string;
+  style?: React.CSSProperties;
 }
 
 export const IconButton = (props: PropButton) => {
@@ -51,6 +52,7 @@ export const IconButton = (props: PropButton) => {
       type={props.type}
       $size={props.size || DEFAULT_SIZE}
       $iconSize={props.iconSize || DEFAULT_ICON_SIZE}
+      style={props.style}
     >
       {props.icon}
     </StyledButton>

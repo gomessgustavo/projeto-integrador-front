@@ -12,7 +12,7 @@ export const HeaderBar = styled.header`
   margin: 0;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 

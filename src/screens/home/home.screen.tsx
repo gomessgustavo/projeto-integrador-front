@@ -19,6 +19,13 @@ import { Header } from "../../components/header/header.component";
 import { InputLabel } from "../../components/input-label/input-label.component";
 import { Button } from "../../components/button/button.component";
 import { DEFAULT_GREEN } from "../../utils/css.constants";
+import { Modal } from "../../components/modal/modal.component";
+import { ModalChildrenEnum } from "../../components/modal/modal-children.enum";
+import { CreatePet } from "../../components/modal/children/create-pet.component";
+import { DeletePet } from "../../components/modal/children/delete-pet.component";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { EditPet } from "../../components/modal/children/edit-pet.component";
 
 export const Home = () => {
   const [pets, setPets] = useState<PetModel[]>([]);
@@ -26,6 +33,9 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const [search, setSearch] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalChild, setModalChild] = useState<ModalChildrenEnum>();
+  const navigate = useNavigate();
   const listInnerRef = useRef<HTMLUListElement>(null);
 
   const getPets = async () => {
@@ -48,6 +58,10 @@ export const Home = () => {
     getPetsCallback();
   }, [getPetsCallback]);
 
+  useEffect(() => {
+    setModalOpen(!!modalChild);
+  }, [modalChild]);
+
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
@@ -57,16 +71,60 @@ export const Home = () => {
     }
   };
 
-  const openModal = (pet: PetModel) => {
-    setSelectedPet(pet);
-  };
-
   const nextPage = () => {
     setPage((value) => value + 1);
   };
 
+  const deletePet = async (pet: PetModel) => {
+    try {
+      const api = AdocaoApi();
+      await api.deletePet(pet.id);
+      navigate("/");
+    } catch (e) {
+      toast.error("Ocorreu um erro ao deletar " + pet.nome);
+      onCloseModal();
+    }
+  };
+
+  const onCloseModal = () => {
+    setModalChild(undefined);
+    setSelectedPet(undefined);
+  };
+
+  const getChildren = () => {
+    let child = undefined;
+    switch (modalChild) {
+      case ModalChildrenEnum.CREATE_PET:
+        child = <CreatePet />;
+        break;
+      case ModalChildrenEnum.DELETE_PET:
+        child = (
+          <DeletePet
+            onConfirm={async () => deletePet(selectedPet as PetModel)}
+            onDecline={onCloseModal}
+          />
+        );
+        break;
+      case ModalChildrenEnum.EDIT_PET:
+        child = <EditPet pet={selectedPet} closeModal={onCloseModal} />;
+    }
+
+    return child;
+  };
+
+  const onActionPet = (pet: PetModel, modal: ModalChildrenEnum) => {
+    setModalChild(modal);
+    setSelectedPet(pet);
+  };
+
   return (
     <HomeContainer>
+      <Modal
+        children={getChildren()}
+        isOpen={modalOpen}
+        closeModal={() => setModalChild(undefined)}
+      />
+
       <Header />
       <RowDiv
         $height="7vh"
@@ -83,65 +141,15 @@ export const Home = () => {
         />
         <Button
           name="Adicionar pet"
-          onClick={() => console.log("add")}
+          onClick={() => setModalChild(ModalChildrenEnum.CREATE_PET)}
           color={DEFAULT_GREEN}
         />
       </RowDiv>
-      <HomeLista
-        onScroll={onScroll}
-        ref={listInnerRef}
-        $modalOpened={!!selectedPet}
-      >
+      <HomeLista onScroll={onScroll} ref={listInnerRef}>
         {pets.map((pet) => (
-          <CardPet
-            key={pet.id}
-            pet={pet}
-            openModal={openModal}
-            modalOpened={!!selectedPet}
-          />
+          <CardPet key={pet.id} pet={pet} onAction={onActionPet} />
         ))}
       </HomeLista>
-      {selectedPet && (
-        <HomeInfoContainer>
-          <HomeInfo>
-            <HomeInfoSide>
-              <HomeCarousel>
-                <ReactImageGallery
-                  items={selectedPet.azureUrls.map((url: string) => ({
-                    original: url,
-                    thumbnail: url,
-                  }))}
-                  showThumbnails={false}
-                  showPlayButton={false}
-                  showBullets={false}
-                  showIndex
-                />
-              </HomeCarousel>
-              <ColumnDiv $justifyContent="flex-start">
-                <RowDiv
-                  $justifyContent="space-between"
-                  style={{ height: "auto" }}
-                >
-                  <div></div>
-                  <h2>{selectedPet.nome}</h2>
-                  <IconButton
-                    onClick={() => setSelectedPet(undefined)}
-                    icon={<AiOutlineClose width="100%" />}
-                    color="#E5141E"
-                  />
-                </RowDiv>
-                <p>{selectedPet.descricao}</p>
-              </ColumnDiv>
-            </HomeInfoSide>
-
-            <h2>Contato</h2>
-            <p>
-              Em caso de interesse, logo abaixo você pode preencher o formulário
-              e enviar para entrarmos em contato.
-            </p>
-          </HomeInfo>
-        </HomeInfoContainer>
-      )}
     </HomeContainer>
   );
 };
